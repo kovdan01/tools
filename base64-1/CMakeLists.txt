@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+
+project(base64 LANGUAGES CXX)
+
+add_executable(${PROJECT_NAME} main.cpp base64.h base64.cpp)
+
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_EXTENSIONS OFF)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tests
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
