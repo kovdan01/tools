@@ -1,4 +1,4 @@
-#include "string.h"  // NOLINT (modernize-deprecated-headers)
+#include "string.hpp"
 
 #include <cassert>
 #include <cstring>
