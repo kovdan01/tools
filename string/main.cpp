@@ -1,110 +1,109 @@
-#include "string.h" //NOLINT (modernize-deprecated-headers)
-#include <string.h> //NOLINT (modernize-deprecated-headers)
-#include <iostream>
-#include <utility>
-#include <string>
+#include "string.h"  // NOLINT (modernize-deprecated-headers)
+
 #include <cassert>
+#include <cstring>
+#include <iostream>
+#include <string>
+#include <utility>
 
-using namespace std;
-
-void check_at(const std::string & std_s, const my::string & my_s, std::size_t pos)
+void check_at(const std::string& std_s, const my::string& my_s, std::size_t pos)
 {
     assert(my_s.at(pos) == std_s.at(pos));
 }
 
-void check_at(std::string & std_s, my::string & my_s, std::size_t pos, char c)
+void check_at(std::string& std_s, my::string& my_s, std::size_t pos, char c)
 {
     my_s.at(pos) = c;
     std_s.at(pos) = c;
     assert(std_s.at(pos) == my_s.at(pos));
 }
 
-void check_brackets(const std::string & std_s, const my::string & my_s, std::size_t pos)
+void check_brackets(const std::string& std_s, const my::string& my_s, std::size_t pos)
 {
     assert(std_s[pos] == my_s[pos]);
 }
 
-void check_front(const std::string & std_s, const my::string & my_s)
+void check_front(const std::string& std_s, const my::string& my_s)
 {
     assert(std_s.front() == my_s.front());
 }
 
-void check_front(std::string & std_s, my::string & my_s, char c)
+void check_front(std::string& std_s, my::string& my_s, char c)
 {
     std_s.front() = c;
     my_s.front() = c;
     assert(std_s.front() == my_s.front());
 }
 
-void check_back(const std::string & std_s, const my::string & my_s)
+void check_back(const std::string& std_s, const my::string& my_s)
 {
     assert(std_s.back() == my_s.back());
 }
 
-void check_back(std::string & std_s, my::string & my_s, char c)
+void check_back(std::string& std_s, my::string& my_s, char c)
 {
     std_s.back() = c;
     my_s.back() = c;
     assert(std_s.back() == my_s.back());
 }
 
-void check_data(const std::string & std_s, const my::string & my_s)
+void check_data(const std::string& std_s, const my::string& my_s)
 {
     auto std_data = std_s.data();
     auto my_data = my_s.data();
-    auto n = strlen(std_data), m = strlen(my_data);
+    auto n = std::strlen(std_data), m = std::strlen(my_data);
     assert(n == m);
     for(std::size_t i = 0; i < n; ++i)
         assert(std_data[i] == my_data[i]);
 }
 
-void check_c_str(const std::string & std_s, const my::string & my_s)
+void check_c_str(const std::string& std_s, const my::string& my_s)
 {
     auto std_c_str = std_s.c_str();
     auto my_c_str = my_s.c_str();
-    auto n = strlen(std_c_str), m = strlen(my_c_str);
+    auto n = std::strlen(std_c_str), m = std::strlen(my_c_str);
     assert(n == m);
     for(std::size_t i = 0; i < n; ++i)
         assert(std_c_str[i] == my_c_str[i]);
 }
 
-void check_begin(const my::string & my_s)
+void check_begin(const my::string& my_s)
 {
     if (!my_s.empty())
         assert(*my_s.begin() == my_s[0]);
 }
 
-void check_rbegin(const my::string & my_s)
+void check_rbegin(const my::string& my_s)
 {
     if (!my_s.empty())
         assert(*my_s.rbegin() == my_s[my_s.size() - 1]);
 }
 
-void check_end(const my::string & my_s)
+void check_end(const my::string& my_s)
 {
     if (!my_s.empty())
         assert(*(my_s.end() - 1) == my_s[my_s.size() - 1]);
 }
 
-void check_rend(const my::string & my_s)
+void check_rend(const my::string& my_s)
 {
     if (!my_s.empty())
         assert(*(my_s.rend() - 1) == my_s[0]);
 }
 
-void check_empty(const std::string & std_s, const my::string & my_s)
+void check_empty(const std::string& std_s, const my::string& my_s)
 {
     assert(std_s.empty() == my_s.empty());
 }
 
-void check_size_length_capacity(const std::string & std_s, const my::string & my_s)
+void check_size_length_capacity(const std::string& std_s, const my::string& my_s)
 {
     assert(std_s.size() == my_s.size());
     assert(std_s.length() == my_s.length());
     assert(my_s.size() <= my_s.capacity());
 }
 
-void check_reserve(my::string & my_s, std::size_t new_cap)
+void check_reserve(my::string& my_s, std::size_t new_cap)
 {
     auto old_size = my_s.size();
     my_s.reserve(new_cap);
@@ -112,93 +111,97 @@ void check_reserve(my::string & my_s, std::size_t new_cap)
     assert(my_s.capacity() >= new_cap);
 }
 
-void check_shrink_to_fit(my::string & my_s)
+void check_shrink_to_fit(my::string& my_s)
 {
     auto old_size = my_s.size();
     my_s.shrink_to_fit();
     assert(my_s.size() == old_size);
     assert(my_s.size() == my_s.capacity());
-    assert(my_s.size() == strlen(my_s.data()));
+    assert(my_s.size() == std::strlen(my_s.data()));
 }
 
-void check_clear(my::string & my_s)
+void check_clear(my::string& my_s)
 {
     my_s.clear();
     assert(my_s.empty());
-    assert(strlen(my_s.data()) == 0);
+    assert(std::strlen(my_s.data()) == 0);
 }
 
-void check_erase(std::string & std_s, std::string::iterator std_it, my::string & my_s, my::string::iterator my_it)
+void check_erase(std::string& std_s, std::string::iterator std_it,
+                 my::string& my_s, my::string::iterator my_it)
 {
     my_s.erase(my_it);
     std_s.erase(std_it);
     check_data(std_s, my_s);
 }
 
-void check_erase(std::string & std_s, std::string::iterator std_it1, std::string::iterator std_it2, my::string & my_s, my::string::iterator my_it1, my::string::iterator my_it2)
+void check_erase(std::string& std_s, std::string::iterator std_it1, std::string::iterator std_it2,
+                 my::string& my_s, my::string::iterator my_it1, my::string::iterator my_it2)
 {
     my_s.erase(my_it1, my_it2);
     std_s.erase(std_it1, std_it2);
     check_data(std_s, my_s);
 }
 
-void check_erase(std::string & std_s, my::string & my_s, std::size_t ind, std::size_t cnt)
+void check_erase(std::string& std_s, my::string& my_s, std::size_t ind, std::size_t cnt)
 {
     my_s.erase(ind, cnt);
     std_s.erase(ind, cnt);
     check_data(std_s, my_s);
 }
 
-void check_push_back(std::string & std_s, my::string & my_s, char c)
+void check_push_back(std::string& std_s, my::string& my_s, char c)
 {
     my_s.push_back(c);
     std_s.push_back(c);
     check_data(std_s, my_s);
 }
 
-void check_pop_back(std::string & std_s, my::string & my_s)
+void check_pop_back(std::string& std_s, my::string& my_s)
 {
     std_s.pop_back();
     my_s.pop_back();
     check_data(std_s, my_s);
 }
 
-void check_short_plus(std::string & std_s, my::string & my_s, char c)
+void check_short_plus(std::string& std_s, my::string& my_s, char c)
 {
     std_s += c;
     my_s += c;
     check_data(std_s, my_s);
 }
 
-void check_short_plus(std::string & std_s, my::string & my_s, const char* c)
+void check_short_plus(std::string& std_s, my::string& my_s, const char* c)
 {
     std_s += c;
     my_s += c;
     check_data(std_s, my_s);
 }
 
-void check_short_plus(std::string & std_s, const std::string & std_other, my::string & my_s, const my::string & my_other)
+void check_short_plus(std::string& std_s, const std::string& std_other,
+                      my::string& my_s, const my::string& my_other)
 {
     std_s += std_other;
     my_s += my_other;
     check_data(std_s, my_s);
 }
 
-void check_resize(std::string & std_s, my::string & my_s, std::size_t n, char c)
+void check_resize(std::string& std_s, my::string& my_s, std::size_t n, char c)
 {
     std_s.resize(n, c);
     my_s.resize(n, c);
     check_data(std_s, my_s);
 }
 
-void check_resize(std::string & std_s, my::string & my_s, std::size_t n)
+void check_resize(std::string& std_s, my::string& my_s, std::size_t n)
 {
     std_s.resize(n);
     my_s.resize(n);
     check_data(std_s, my_s);
 }
 
-void check_swap(std::string & std_s, std::string & std_other, my::string & my_s, my::string & my_other)
+void check_swap(std::string& std_s, std::string& std_other,
+                my::string& my_s, my::string& my_other)
 {
     check_data(std_s, my_s);
     check_data(std_other, my_other);
@@ -208,7 +211,8 @@ void check_swap(std::string & std_s, std::string & std_other, my::string & my_s,
     check_data(std_other, my_other);
 }
 
-void check_binaries(const std::string & std_s, const std::string & std_other, const my::string & my_s, const my::string & my_other)
+void check_binaries(const std::string& std_s, const std::string& std_other,
+                    const my::string& my_s, const my::string& my_other)
 {
     check_data(std_s, my_s);
     check_data(std_other, my_other);
@@ -220,10 +224,10 @@ void check_binaries(const std::string & std_s, const std::string & std_other, co
     assert((std_s >= std_other) == (my_s >= my_other));
 }
 
-void check_binaries(const std::string & std_s, const my::string & my_s, const char * other)
+void check_binaries(const std::string& std_s, const my::string& my_s, const char* other)
 {
     check_data(std_s, my_s);
-    auto n = strlen(other), m = strlen(other);
+    auto n = std::strlen(other), m = std::strlen(other);
     assert(n == m);
     for(std::size_t i = 0; i < n; ++i)
         assert(other[i] == other[i]);
@@ -315,15 +319,15 @@ int main()
         assert(!(my_s.cbegin() >= my_s.cend()));
         assert(static_cast<std::ptrdiff_t>(my_s.size()) + my_s.crbegin() == my_s.crend());
         assert(!(my_s.begin() > my_s.end()));
-        assert(++my_s.begin() == my_s.begin() + 1); //NOLINT(bugprone-assert-side-effect)
-        assert(my_s.begin()++ == my_s.begin()); //NOLINT(bugprone-assert-side-effect)
+        assert(++my_s.begin() == my_s.begin() + 1);  // NOLINT(bugprone-assert-side-effect)
+        assert(my_s.begin()++ == my_s.begin());  // NOLINT(bugprone-assert-side-effect)
         assert(my_s.cbegin() != my_s.cend());
         assert(my_s.begin() == my_s.end() - static_cast<std::ptrdiff_t>(my_s.size()));
         assert(my_s.rbegin() == my_s.rend() - static_cast<std::ptrdiff_t>(my_s.size()));
-        assert(my_s.cbegin()-- == my_s.cend() - static_cast<std::ptrdiff_t>(my_s.size())); //NOLINT(bugprone-assert-side-effect)
+        assert(my_s.cbegin()-- == my_s.cend() - static_cast<std::ptrdiff_t>(my_s.size()));  // NOLINT(bugprone-assert-side-effect)
         assert(my_s.crbegin() == my_s.crend() - static_cast<std::ptrdiff_t>(my_s.size()));
-        assert(my_s.begin() + static_cast<std::ptrdiff_t>(my_s.size()) - 1 == --my_s.end()); //NOLINT(bugprone-assert-side-effect)
-        assert(static_cast<std::ptrdiff_t>(my_s.size()) + my_s.rbegin() == my_s.rend()--); //NOLINT(bugprone-assert-side-effect)
+        assert(my_s.begin() + static_cast<std::ptrdiff_t>(my_s.size()) - 1 == --my_s.end());  // NOLINT(bugprone-assert-side-effect)
+        assert(static_cast<std::ptrdiff_t>(my_s.size()) + my_s.rbegin() == my_s.rend()--);  // NOLINT(bugprone-assert-side-effect)
         assert(my_s.cbegin() >= my_s.cend() - static_cast<std::ptrdiff_t>(my_s.size()));
         assert(my_s.crbegin() <= my_s.crend() - static_cast<std::ptrdiff_t>(my_s.size()));
         while(!std_s.empty())
@@ -338,7 +342,7 @@ int main()
     {
         my::string my_s1("abcdef"), my_s2("abcdeh"), my_s3("abc"), my_s4("abcdefg");
         std::string std_s1("abcdef"), std_s2("abcdeh"), std_s3("abc"), std_s4("abcdefg");
-        const char * other_1 = "abcdef", *other_2 = "abcdeh", *other_3 = "abc", *other_4 = "abcdefg", *other_5 = "aacdef";
+        const char* other_1 = "abcdef", *other_2 = "abcdeh", *other_3 = "abc", *other_4 = "abcdefg", *other_5 = "aacdef";
         check_binaries(std_s1, std_s1, my_s1, my_s1);
         check_binaries(std_s1, std_s2, my_s1, my_s2);
         check_binaries(std_s1, std_s3, my_s1, my_s3);
@@ -358,7 +362,7 @@ int main()
     {
         my::string my_s;
         std::string std_s;
-        const char * other = "abcde";
+        const char* other = "abcde";
         check_short_plus(std_s, std::string(other), my_s, my::string(other));
         check_short_plus(std_s, my_s, 'a');
         check_erase(std_s, my_s, 0, 3);
@@ -397,7 +401,7 @@ int main()
         check_reserve(my_s1, 3);
         my_s2 = std::move(my_s1);
         assert(my_s2 == "abc");
-        assert(my_s1.empty()); //NOLINT(bugprone-use-after-move)
+        assert(my_s1.empty());  // NOLINT(bugprone-use-after-move)
     }
     {
         my::string my_s1("abc"), my_s2(std::move(my_s1));
@@ -408,7 +412,7 @@ int main()
         my::string my_s1("abc"), my_s2;
         my_s2 = std::move(my_s1);
         assert(my_s2 == "abc");
-        assert(my_s1.empty()); //NOLINT(bugprone-use-after-move)
+        assert(my_s1.empty());  // NOLINT(bugprone-use-after-move)
     }
     {
         my::string my_s1("abc"), my_s2(my_s1);
