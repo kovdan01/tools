@@ -1,5 +1,5 @@
-#ifndef SPLIT_H
-#define SPLIT_H
+#ifndef MY_SPLIT_HPP_
+#define MY_SPLIT_HPP_
 
 #include <iterator>
 #include <memory>
@@ -177,4 +177,4 @@ public:
 
 }  // namespace my
 
-#endif  // SPLIT_H
+#endif  // MY_SPLIT_HPP_

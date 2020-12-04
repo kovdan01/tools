@@ -1,5 +1,5 @@
-#ifndef MY_STRING_H
-#define MY_STRING_H
+#ifndef MY_STRING_HPP_
+#define MY_STRING_HPP_
 
 #include <algorithm>
 #include <cstddef>
@@ -208,4 +208,4 @@ private:
 
 }  // namespace my
 
-#endif  // MY_STRING_H
+#endif  // MY_STRING_HPP_
